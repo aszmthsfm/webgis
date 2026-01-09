@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>张顺 - 个人资料</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  
+  <style>
+    /* === 页面专用样式 === */
+    
+    .content-section {
+      background: white;
+      border-radius: 12px;
+      padding: 25px;
+      margin-bottom: 20px;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+    }
+
+    .section-title {
+      font-size: 1.4rem;
+      color: #333;
+      margin-bottom: 20px;
+      border-left: 5px solid #3B82F6;
+      padding-left: 10px;
+      display: flex;
+      align-items: center;
+    }
+    .section-title i { margin-right: 10px; color: #3B82F6; }
+
+    /* 个人信息列表样式 */
+    .info-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 15px;
+    }
+    .info-item {
+      font-size: 1rem;
+      color: #555;
+      padding: 8px 0;
+      border-bottom: 1px dashed #eee;
+    }
+    .info-item strong {
+      color: #333;
+      margin-right: 10px;
+      font-weight: 600;
+    }
+
+    /* 技能标签样式 */
+    .skill-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 15px;
+    }
+    .skill-tag {
+      background-color: #eff6ff;
+      color: #3B82F6;
+      padding: 6px 14px;
+      border-radius: 20px;
+      font-size: 0.9rem;
+      border: 1px solid #bfdbfe;
+      font-weight: 500;
+    }
+
+    /* 音乐播放列表样式 */
+    .music-container {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 15px;
+    }
+    .music-card {
+      background: #f8fafc;
+      padding: 12px;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      gap: 15px;
+      border: 1px solid #e2e8f0;
+      transition: all 0.3s;
+    }
+    .music-card:hover { transform: translateY(-3px); box-shadow: 0 5px 15px rgba(0,0,0,0.1); }
+    
+    .music-cover {
+      width: 60px;
+      height: 60px;
+      border-radius: 8px;
+      object-fit: cover;
+      border: 1px solid #ddd;
+    }
+
+    .music-info {
+      flex-grow: 1;
+    }
+    .music-info h4 { margin: 0 0 4px 0; font-size: 1.05rem; color: #333; }
+    .music-info p { margin: 0; font-size: 0.85rem; color: #666; }
+    
+    .play-btn {
+      background: #3B82F6;
+      color: white;
+      border: none;
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1rem;
+      transition: background 0.3s, transform 0.2s;
+      flex-shrink: 0;
+    }
+    .play-btn:hover { background: #2563EB; transform: scale(1.1); }
+    .play-btn.playing { background: #EF4444; }
+    .play-btn.playing i { animation: pulse 2s infinite; }
+
+    @keyframes pulse {
+      0% { transform: scale(1); }
+      50% { transform: scale(1.2); }
+      100% { transform: scale(1); }
+    }
+
+    .member-course-detail {
+      max-width: 1000px;
+      margin: 20px auto;
+      padding: 0 20px;
+    }
+  </style>
+</head>
+<body class="member-course-page" style="background-color: #f4f6f5;">
+  
+  <nav class="navbar">
+    <div class="logo">
+      <a href="home.html">我们的小组</a>
+    </div>
+    <ul class="nav-links">
+      <li><a href="../../home.html#introduction">返回小组介绍</a></li>
+    </ul>
+  </nav>
+
+  <section class="member-course-detail">
+    
+    <div class="member-header" style="background: white; padding: 30px; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); display: flex; align-items: center; gap: 30px; margin-bottom: 20px;">
+      <div class="member-avatar-large">
+        <img src="repository_zs/zs.jpg" alt="张顺头像" style="width: 120px; height: 120px; border-radius: 50%; object-fit: cover; border: 4px solid #fff; box-shadow: 0 4px 10px rgba(0,0,0,0.1);">
+      </div>
+      <div class="member-basic-info">
+        <h2 style="margin: 0 0 10px 0; color: #1e293b;">张顺 <span style="font-size: 0.9rem; color: #64748b; font-weight: normal;">(WebGIS 开发成员)</span></h2>
+        <p class="member-role" style="color: #3B82F6; font-weight: bold; margin-bottom: 10px;">组员 | 测试和文档编写方向</p>
+        <p class="member-intro" style="color: #475569; line-height: 1.6;">
+          负责测试和文档编写，注重细节，致力于保障项目的稳定性与文档的规范性。热爱地理信息技术，喜欢探索代码与地图的结合。
+        </p>
+      </div>
+    </div>
+
+    <div class="content-section">
+      <h3 class="section-title"><i class="fas fa-id-card"></i> 个人信息</h3>
+      <div class="info-grid">
+        <div class="info-item"><strong>姓名：</strong>张顺</div>
+        <div class="info-item"><strong>学校：</strong>武汉大学</div>
+        <div class="info-item"><strong>学院：</strong>资源与环境科学学院</div>
+        <div class="info-item"><strong>专业：</strong>地理信息科学</div>
+        <div class="info-item"><strong>年级：</strong>2023级</div>
+        <div class="info-item"><strong>学号：</strong>2021302111004</div> </div>
+    </div>
+
+    <div class="content-section">
+      <h3 class="section-title"><i class="fas fa-laptop-code"></i> 技能专长</h3>
+      <div style="line-height: 1.8; color: #444;">
+        <p>在地理信息科学开发与软件工程实践中，我积累了以下核心能力：</p>
+        <ul style="margin-left: 20px; margin-top: 10px;">
+          <li><strong>开发技术：</strong> 掌握 <b>JavaScript</b>、<b>HTML5/CSS3</b>，具备 <b>C++</b> 编程基础。</li>
+          <li><strong>GIS 框架：</strong> 熟悉 <b>Leaflet</b> 地图引擎的开发与定制，了解 OpenLayers 与 Mapbox GL。</li>
+          <li><strong>数据处理：</strong> 能熟练使用 ArcGIS Pro 和 QGIS 进行空间数据分析、拓扑检查与制图。</li>
+          <li><strong>工程素养：</strong> 擅长编写规范的技术文档，负责系统功能测试与 Bug 追踪。</li>
+        </ul>
+        <div class="skill-tags">
+          <span class="skill-tag">WebGIS</span>
+          <span class="skill-tag">JavaScript</span>
+          <span class="skill-tag">C++</span>
+          <span class="skill-tag">Leaflet</span>
+          <span class="skill-tag">ArcGIS</span>
+          <span class="skill-tag">软件测试</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="content-section">
+      <h3 class="section-title"><i class="fas fa-book-open"></i> 课程成绩单</h3>
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px;">
+        
+        <div class="course-category">
+          <h4 style="color: #3B82F6; border-bottom: 2px solid #e2e8f0; padding-bottom: 10px; margin-bottom: 15px;">专业核心课</h4>
+          <ul class="course-list">
+            <li>地图学 <span class="score">91分</span></li>
+            <li>地理信息系统原理 <span class="score">85分</span></li>
+            <li>遥感数字图像处理 <span class="score">91分</span></li>
+            <li>空间数据库 <span class="score">88分</span></li>
+            <li>数字测图与卫星导航 <span class="score">82分</span></li>
+          </ul>
+        </div>
+        
+        <div class="course-category">
+          <h4 style="color: #10B981; border-bottom: 2px solid #e2e8f0; padding-bottom: 10px; margin-bottom: 15px;">选修课程</h4>
+          <ul class="course-list">
+            <li>地图投影与空间变换 <span class="score">91分</span></li>
+            <li>测绘学概论 <span class="score">93分</span></li>
+            <li>环境问题观察 <span class="score">95分</span></li>
+            <li>环境科学与工程改论 <span class="score">87分</span></li>
+            <li>机器学习原理与应用 <span class="score">83分</span></li>
+          </ul>
+        </div>
+        
+        <div class="course-category">
+          <h4 style="color: #F59E0B; border-bottom: 2px solid #e2e8f0; padding-bottom: 10px; margin-bottom: 15px;">通识课程</h4>
+          <ul class="course-list">
+            <li>大学英语 <span class="score">86分</span></li>
+            <li>高等数学 <span class="score">85分</span></li>
+            <li>线性代数 <span class="score">92分</span></li>
+            <li>程序设计（C++） <span class="score">8分</span></li>
+          </ul>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="content-section">
+      <h3 class="section-title"><i class="fas fa-headphones"></i> 我的推荐 - 音乐列表</h3>
+      <div class="music-container">
+        
+        <div class="music-card">
+          <img src="repository_zs/dtmf.jpg" alt="DTMF 封面" class="music-cover" onerror="this.src='https://via.placeholder.com/60?text=Music'"> 
+          <div class="music-info">
+            <h4>DTMF</h4>
+            <p>Bad Bunny</p> 
+          </div>
+          <button class="play-btn" onclick="playMusic(this, 'repository_zs/Bad_Bunny_-_DtMF_Explicit_(mp3.pm).mp3')">
+            <i class="fas fa-play"></i>
+          </button>
+        </div>
+
+        <div class="music-card">
+          <img src="repository_zs/melodrama.jpg" alt="Supercut 封面" class="music-cover" onerror="this.src='https://via.placeholder.com/60?text=Music'">
+          <div class="music-info">
+            <h4>Supercut</h4>
+            <p>Lorde</p> 
+          </div>
+          <button class="play-btn" onclick="playMusic(this, 'repository_zs/Lorde_-_The_Louvre_(mp3.pm).mp3')">
+            <i class="fas fa-play"></i>
+          </button>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="back-btn-container" style="text-align: center; margin-top: 30px;">
+      <button class="back-btn" onclick="window.history.back()" style="background: #333; color: white; padding: 10px 30px; border-radius: 25px; border: none; cursor: pointer; transition: background 0.3s;">
+        <i class="fas fa-arrow-left"></i> 返回上一页
+      </button>
+    </div>
+
+  </section>
+
+  <script>
+    // ============ 音乐播放逻辑 ============
+    let currentAudio = null;
+    let currentBtn = null;
+
+    function playMusic(btn, src) {
+      const icon = btn.querySelector('i');
+
+      if (currentBtn === btn && !currentAudio.paused) {
+        currentAudio.pause();
+        resetBtn(btn);
+        return;
+      }
+
+      if (currentAudio) {
+        currentAudio.pause();
+        currentAudio.currentTime = 0; 
+        if (currentBtn) resetBtn(currentBtn);
+      }
+
+      currentAudio = new Audio(src);
+      
+      currentAudio.play().catch(error => { 
+        console.error("播放失败:", error); 
+        alert("播放失败，请检查 repository_zs 文件夹下是否存在该音频文件:\n" + src); 
+      });
+
+      currentBtn = btn;
+      icon.className = 'fas fa-pause'; 
+      btn.classList.add('playing');
+
+      currentAudio.onended = () => { 
+        resetBtn(btn); 
+        currentAudio = null; 
+        currentBtn = null; 
+      };
+    }
+
+    function resetBtn(btn) { 
+      const icon = btn.querySelector('i');
+      icon.className = 'fas fa-play'; 
+      btn.classList.remove('playing'); 
+    }
+  </script>
+</body>
+</html>

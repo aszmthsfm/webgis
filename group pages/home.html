@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>小组介绍 - 主页</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="https://cdn.bootcdn.net/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body class="home-page">
+  <!-- 导航栏 -->
+  <nav class="navbar">
+    <div class="logo">我们的小组</div>
+    <ul class="nav-links">
+      <li><a href="#introduction">小组介绍</a></li>
+      <li><a href="#courses">修过的课程</a></li>
+      <li><a href="#contact">联系方式</a></li>
+    </ul>
+  </nav>
+
+  <!-- 小组成员地图主题与介绍 -->
+  <section id="group-map" class="section">
+    <h2 class="section-title">小组成员地图</h2>
+    <div style="display: flex; align-items: center; justify-content: space-between; max-width: 1000px; margin: 0 auto; gap: 1rem;">
+      <p style="color: #666; line-height: 1.8;">
+        我们的小组足迹地图展示了各位成员的旅行轨迹与地点标记，支持按照成员查看其足迹详情，
+        并在地图上联动显示路线与标记。点击右侧按钮可直接进入地图页面进行查看与探索。
+      </p>
+      <a href="travelFootprint/frontend/travelFootprint.html" class="enter-btn" style="flex-shrink: 0;">
+        进入足迹地图
+      </a>
+    </div>
+  </section>
+
+  <!-- 小组介绍部分（竖排显示） -->
+  <section id="introduction" class="section introduction">
+    <h2 class="section-title">小组介绍</h2>
+    <div class="members-container">
+      <!-- 组员1：添加 uniform-border 类 -->
+      <div class="member-card uniform-border" onclick="window.location.href='member1.html'">
+        <div class="member-avatar">
+          <img src="C:/Users/27304/Desktop/group pages/member images/lk.jpeg" alt="黎可头像">
+        </div>
+        <div class="member-info">
+          <h3 class="member-name">黎可 <i class="fas fa-arrow-right"></i></h3>
+          <p class="member-desc">组长，负责项目统筹和技术指导，对前端开发有深入研究，喜欢探索新技术。</p>
+          <div class="member-contact">
+            <p><i class="fas fa-envelope"></i> 2023302051151@whu.edu.cn</p>
+            <p><i class="fas fa-phone"></i> 173-1780-8819</p>
+          </div>
+          <span class="click-hint">点击查看修过的课程 →</span>
+        </div>
+      </div>
+      
+      <!-- 组员2：添加 uniform-border 类 -->
+      <div class="member-card uniform-border" onclick="window.location.href='member2.html'">
+        <div class="member-avatar">
+          <img src="C:/Users/27304/Desktop/group pages/member images/sun.png" alt="孙鑫瑞头像">
+        </div>
+        <div class="member-info">
+          <h3 class="member-name">孙鑫瑞 <i class="fas fa-arrow-right"></i></h3>
+          <p class="member-desc">组员，擅长后端开发和数据库设计，逻辑思维清晰，解决问题能力强。</p>
+          <div class="member-contact">
+            <p><i class="fas fa-envelope"></i> 2023302051061@whu.edu.cn</p>
+            <p><i class="fas fa-phone"></i> 188-0000-2222</p>
+          </div>
+          <span class="click-hint">点击查看修过的课程 →</span>
+        </div>
+      </div>
+      
+      <!-- 组员3：添加 uniform-border 类 -->
+      <div class="member-card uniform-border" onclick="window.location.href='member3.html'">
+        <div class="member-avatar">
+          <img src="C:/Users/27304/Desktop/group pages/member images/wdd.jpeg" alt="王东东头像">
+        </div>
+        <div class="member-info">
+          <h3 class="member-name">王东东 <i class="fas fa-arrow-right"></i></h3>
+          <p class="member-desc">组员，专注于UI/UX设计，对用户体验有深刻理解，设计风格简洁大方。</p>
+          <div class="member-contact">
+            <p><i class="fas fa-envelope"></i> 2023302051104@whu.edu.cn</p>
+            <p><i class="fas fa-phone"></i> 189-0000-3333</p>
+          </div>
+          <span class="click-hint">点击查看修过的课程 →</span>
+        </div>
+      </div>
+      
+      <!-- 组员4：添加 uniform-border 类 -->
+      <div class="member-card uniform-border" onclick="window.location.href='member4.html'">
+        <div class="member-avatar">
+          <img src="C:/Users/27304/Desktop/group pages/member images/zs.jpeg" alt="张顺头像">
+        </div>
+        <div class="member-info">
+          <h3 class="member-name">张顺 <i class="fas fa-arrow-right"></i></h3>
+          <p class="member-desc">组员，擅长测试和文档编写，注重细节，确保项目质量和可维护性。</p>
+          <div class="member-contact">
+            <p><i class="fas fa-envelope"></i> 2023302051097@whu.edu.cn</p>
+            <p><i class="fas fa-phone"></i> 181-0000-4444</p>
+          </div>
+          <span class="click-hint">点击查看修过的课程 →</span>
+        </div>
+      </div>
+
+      <!-- 组员5（赵子航）：添加 uniform-border 类 -->
+      <div class="member-card uniform-border" onclick="window.location.href='member5.html'">
+        <div class="member-avatar">
+          <img src="C:/Users/27304/Desktop/group pages/member images/zzh.jpg" alt="赵子航头像">
+        </div>
+        <div class="member-info">
+          <h3 class="member-name">赵子航 <i class="fas fa-arrow-right"></i></h3>
+          <p class="member-desc">组员，擅长数据分析与可视化，熟悉Python数据处理库，对数据敏感。</p>
+          <div class="member-contact">
+            <p><i class="fas fa-envelope"></i> 2023302051151@whu.edu.cn</p>
+            <p><i class="fas fa-phone"></i> 171-0000-5555</p>
+          </div>
+          <span class="click-hint">点击查看修过的课程 →</span>
+        </div>
+      </div>
+      <div class="add-member-container" style="display:flex; justify-content:center; margin-top:16px;">
+        <button id="addMemberBtn" style="width:56px; height:56px; border-radius:50%; border:1px solid #4a6cf7; color:#4a6cf7; background:#fff; display:flex; align-items:center; justify-content:center; font-size:24px; cursor:pointer;">
+          <i class="fas fa-plus"></i>
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <div id="addMemberModal" class="modal-overlay" style="position:fixed; inset:0; background:rgba(0,0,0,0.5); display:none; align-items:center; justify-content:center; z-index:1000;">
+    <div class="modal-content" style="background:#fff; border-radius:10px; width:520px; max-width:90%; padding:20px;">
+      <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px;">
+        <h3 style="font-size:18px; font-weight:bold;">添加成员</h3>
+        <button id="closeAddMember" style="background:#eee; border:none; border-radius:50%; width:32px; height:32px; cursor:pointer;"><i class="fas fa-times"></i></button>
+      </div>
+      <form id="newMemberForm">
+        <div class="form-row" style="margin-bottom:10px;">
+          <label>姓名</label>
+          <input id="nmName" type="text" required style="width:100%; padding:8px; border:1px solid #ccc; border-radius:6px;">
+        </div>
+        <div class="form-row" style="margin-bottom:10px;">
+          <label>角色</label>
+          <input id="nmRole" type="text" required style="width:100%; padding:8px; border:1px solid #ccc; border-radius:6px;">
+        </div>
+        <div class="form-row" style="margin-bottom:10px;">
+          <label>介绍</label>
+          <textarea id="nmIntro" rows="3" required style="width:100%; padding:8px; border:1px solid #ccc; border-radius:6px;"></textarea>
+        </div>
+        <div class="form-row" style="margin-bottom:10px;">
+          <label>头像图片</label>
+          <input id="nmAvatarFile" type="file" accept="image/*" style="width:100%; padding:8px; border:1px solid #ccc; border-radius:6px;">
+        </div>
+        <div class="form-row" style="margin-bottom:10px;">
+          <label>头像图片URL（可选）</label>
+          <input id="nmAvatarUrl" type="url" placeholder="http://..." style="width:100%; padding:8px; border:1px solid #ccc; border-radius:6px;">
+        </div>
+        <div class="form-row" style="margin-bottom:10px;">
+          <label>邮箱</label>
+          <input id="nmEmail" type="email" required style="width:100%; padding:8px; border:1px solid #ccc; border-radius:6px;">
+        </div>
+        <div class="form-row" style="margin-bottom:16px;">
+          <label>电话</label>
+          <input id="nmPhone" type="text" required style="width:100%; padding:8px; border:1px solid #ccc; border-radius:6px;">
+        </div>
+        <div style="display:flex; justify-content:flex-end; gap:8px;">
+          <button type="button" id="cancelAddMember" style="padding:8px 12px; border-radius:6px; background:#eee; border:none; cursor:pointer;">取消</button>
+          <button type="submit" style="padding:8px 12px; border-radius:6px; background:#4a6cf7; color:#fff; border:none; cursor:pointer;">添加</button>
+        </div>
+      </form>
+    </div>
+  </div>
+  <!-- 修过的课程部分（小组共同课程） -->
+  <section id="courses" class="section courses">
+    <h2 class="section-title">小组共同修过的课程</h2>
+    <div class="courses-container">
+      <!-- 必修课程 -->
+      <div class="course-category">
+        <h3 class="category-title"><i class="fas fa-book"></i> 必修课程</h3>
+        <ul class="course-list">
+          <li>自然地理学 </li>
+          <li>地理信息系统原理 </li>
+          <li>操作系统 </li>
+          <li>计算机网络 </li>
+          <li>数据库原理 </li>
+          <li>国土资源与区域发展 </li>
+          <li>地图学 </li>
+        </ul>
+      </div>
+      
+      <!-- 选修课程 -->
+      <div class="course-category">
+        <h3 class="category-title"><i class="fas fa-graduation-cap"></i> 选修课程</h3>
+        <ul class="course-list">
+          <li>地图投影与变换 </li>
+          <li>测绘学概论 </li>
+          <li>环境问题观察 </li>
+          <li>图形图像软件应用 </li>
+          <li>机器学习原理与应用 </li>
+        </ul>
+      </div>
+      
+      <!-- 通识课程 -->
+      <div class="course-category">
+        <h3 class="category-title"><i class="fas fa-university"></i> 通识课程</h3>
+        <ul class="course-list">
+          <li>大学英语</li>
+          <li>高等数学</li>
+          <li>线性代数</li>
+          <li>大学物理 </li>
+          <li>素质体育 </li>
+          <li>程序设计（C++） </li>
+          <li>概率论与数理统计</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- 页脚（联系方式） -->
+  <footer id="contact" class="footer">
+    <div class="contact-info">
+      <h3>联系方式</h3>
+      <p><i class="fas fa-envelope"></i> 邮箱：2023302051151@whu.edu.cn</p>
+      <p><i class="fas fa-phone"></i> 电话：17317808819</p>
+      <p><i class="fas fa-map-marker-alt"></i> 地址：武汉大学信息学部14舍511室</p>
+    </div>
+    <div class="social-links">
+      <a href="#"><i class="fab fa-weixin"></i></a>
+      <a href="#"><i class="fab fa-weibo"></i></a>
+      <a href="#"><i class="fab fa-github"></i></a>
+    </div>
+    <div class="copyright">
+      &copy; 2025 我们的小组 - 版权所有
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
