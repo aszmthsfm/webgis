@@ -1,0 +1,30 @@
+
+INSERT INTO users (id, name, avatar) VALUES
+(6, '赵子航', './images_zzh/zzh.png'); 
+
+INSERT INTO footprints (user_id, location, latitude, longitude, date, description, image_url) VALUES
+-- 2025年1月
+(6, '武汉大学', 30.5488, 114.3535, '2025-01-01', '在校学习，参加期末考试', './images_zzh/wuhan.png'),
+(6, '河北保定', 38.8511, 115.4872, '2025-01-12', '寒假返家', './images_zzh/baoding.png'),
+(6, '河南洛阳', 34.6167, 112.4500, '2025-01-16', '出门旅游', './images_zzh/luoyang.png'),
+'./images_zzh/baoding.png'),
+-- 2025年2月
+(6, '武汉大学', 30.5488, 114.3535, '2025-02-16', '返校报道，开始第二学期', './images_zzh/wuhan.png'),
+-- 2025年5月
+(6, '四川成都', 30.6799, 104.0679, '2025-05-30', '端午小长假，和朋友出去玩', './images_zzh/chengdu.png'),
+-- 2025年6月
+(6, '武汉大学', 30.5488, 114.3535, '2025-06-30', '第三学期，在校上课', './images_zzh/wuhan.png'),
+(6, '河北保定', 38.8511, 115.4872, '2025-01-12', '暑假离校回家', './images_zzh/baoding.png'),
+-- 2025年9月
+(6, '北京', 39.9042, 116.4074, '2025-09-01', '专业实习游学', './images_zzh/beijing.png'),
+(6, '武汉大学', 30.5488, 114.3535, '2025-09-06', '新学期报道', './images_zzh/wuhan.png'),
+(6, '江西庐山', 29.6098, 115.9768, '2025-09-10', '庐山实习，从实践中汲取知识', './images_zzh/lushan.png'),
+(6, '武汉大学', 30.5488, 114.3535, '2025-09-20', '在校上课', './images_zzh/wuhan.png'),
+-- 2025年10月
+(6, '安徽芜湖', 31.3525, 118.4322, '2025-10-01', '国庆假期出门玩', './images_zzh/wuhu.png'),
+(6, '武汉大学', 30.5488, 114.3535, '2025-10-08', '在校上课', './images_zzh/wuhan.png'),
+(6, '湖南张家界', 29.1170, 110.4790, '2025-10-31', '在校上课', './images_zzh/zhangjiajie.png');
+
+
+cd "C:\Users\27304\Desktop\group pages\travelFootprint\backend"
+node server.js

@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>小组旅行足迹地图</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin=""/>
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+  
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet-minimap/3.6.1/Control.MiniMap.min.css" />
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet-minimap/3.6.1/Control.MiniMap.min.js"></script>
+  
+  <link rel="stylesheet" href="style.css">
+  
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            primary: '#3B82F6',
+            secondary: '#10B981',
+            accent: '#F59E0B',
+            dark: '#1E293B',
+            light: '#F8FAFC'
+          },
+          fontFamily: {
+            inter: ['Inter', 'system-ui', 'sans-serif'],
+          },
+        },
+      }
+    }
+  </script>
+</head>
+<body class="font-inter bg-light text-dark antialiased h-screen overflow-hidden flex flex-col">
+  <header class="bg-white shadow-md z-50 transition-custom flex-none h-16">
+    <div class="container mx-auto px-4 py-3 flex justify-between items-center h-full">
+      <div class="flex items-center space-x-2">
+        <i class="fa fa-globe text-primary text-2xl"></i>
+        <h1 class="text-xl font-bold text-dark">小组旅行足迹</h1>
+      </div>
+      <nav>
+        <ul class="flex space-x-6">
+          <li><a href="../../home.html" class="text-dark hover:text-primary transition-custom"><i class="fa fa-home mr-1"></i>首页</a></li>
+          <li><a href="#" class="text-primary font-medium transition-custom"><i class="fa fa-map-marker mr-1"></i>足迹地图</a></li>
+          <li class="relative">
+            <a href="#" class="text-dark hover:text-primary transition-custom" id="members-link"><i class="fa fa-users mr-1"></i>成员</a>
+            <div id="members-dropdown" class="absolute top-full left-0 mt-2 w-48 bg-white shadow-lg rounded-md py-2 hidden z-40">
+              <a href="../../member1.html" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">黎可</a>
+              <a href="../../member2.html" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">孙鑫瑞</a>
+              <a href="../../member3.html" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">王东东</a>
+              <a href="../../member4.html" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">张顺</a>
+              <a href="../../member5.html" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">赵子航</a>
+            </div>
+          </li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main class="flex-1 flex flex-col md:flex-row overflow-hidden relative">
+    
+    <aside id="sidebar" class="bg-white w-full md:w-80 shadow-soft flex flex-col h-full transition-custom z-30">
+      
+      <div class="flex flex-col p-4 border-b" style="max-height: 40%;">
+        <h2 class="text-lg font-bold mb-3 flex items-center flex-shrink-0">
+          <i class="fa fa-users text-accent mr-2"></i>小组成员
+        </h2>
+        <div class="space-y-2 overflow-y-auto pr-1 custom-scrollbar" id="userList">
+          </div>
+        <div class="mt-3 flex justify-center">
+          <button id="addUserBtn" class="bg-white rounded-full p-2 shadow-soft hover:bg-secondary hover:text-white transition-custom" title="添加新成员">
+            <i class="fa fa-plus"></i>
+          </button>
+        </div>
+      </div>
+      
+      <div class="flex flex-col flex-1 overflow-hidden pt-4">
+        <div class="px-4 flex justify-between items-center mb-2">
+            <h2 class="text-lg font-bold flex items-center flex-shrink-0">
+              <i class="fa fa-map-pin text-primary mr-2"></i>旅行足迹
+            </h2>
+        </div>
+        
+        <div class="px-4 pb-2">
+          <div class="relative">
+            <input type="text" id="searchInput" placeholder="搜索地点或描述..." class="w-full pl-8 pr-3 py-2 border rounded-full text-sm focus:outline-none focus:border-primary transition-custom bg-gray-50 hidden">
+            <i class="fa fa-search absolute left-3 top-2.5 text-gray-400 hidden" id="searchIcon"></i>
+          </div>
+        </div>
+
+        <div id="footprintInfo" class="space-y-4 overflow-y-auto flex-1 px-4 pr-1 custom-scrollbar pb-4">
+        </div>
+      </div>
+      
+      <div class="p-4 border-t bg-gray-50 text-center text-xs text-gray-500 flex-shrink-0">
+        &copy; 2025 我们的小组 - 版权所有
+      </div>
+    </aside>
+
+    <section class="flex-1 relative h-full w-full">
+      <div id="map" class="w-full h-full z-10"></div>
+      
+      <div class="absolute top-6 left-6 z-20 flex flex-col space-y-2">
+        <button id="centerMap" class="w-10 h-10 bg-white rounded shadow-soft hover:bg-gray-100 text-gray-700 transition-custom flex items-center justify-center" title="回到中心">
+          <i class="fa fa-crosshairs"></i>
+        </button>
+        <div class="flex flex-col rounded shadow-soft overflow-hidden">
+            <button id="zoomIn" class="w-10 h-10 bg-white hover:bg-gray-100 text-gray-700 border-b transition-custom flex items-center justify-center" title="放大">
+            <i class="fa fa-plus"></i>
+            </button>
+            <button id="zoomOut" class="w-10 h-10 bg-white hover:bg-gray-100 text-gray-700 transition-custom flex items-center justify-center" title="缩小">
+            <i class="fa fa-minus"></i>
+            </button>
+        </div>
+      </div>
+
+      <div class="absolute top-48 right-6 z-20 flex flex-col space-y-3">
+        <button id="animateRoute" class="w-11 h-11 bg-white rounded-full shadow-soft hover:bg-accent hover:text-white text-gray-600 transition-custom flex items-center justify-center" title="播放轨迹动画">
+          <i class="fa fa-play text-lg pl-1"></i>
+        </button>
+      </div>
+      
+      <div class="absolute bottom-8 right-8 z-20 flex flex-col items-end space-y-4 pointer-events-none">
+        
+        <div id="toolbarActions" class="flex flex-col space-y-3 transition-all duration-300 transform translate-y-10 opacity-0 pointer-events-auto items-center">
+          <button id="btnQuery" class="w-12 h-12 bg-white rounded-full shadow-soft hover:bg-primary hover:text-white text-gray-600 transition-custom flex items-center justify-center group relative" title="查询足迹">
+            <i class="fa fa-search text-lg"></i>
+            <span class="absolute right-14 bg-dark text-white text-xs px-2 py-1 rounded opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap">查询</span>
+          </button>
+          <button id="btnEdit" class="w-12 h-12 bg-white rounded-full shadow-soft hover:bg-accent hover:text-white text-gray-600 transition-custom flex items-center justify-center group relative" title="修改模式">
+            <i class="fa fa-pencil text-lg"></i>
+            <span class="absolute right-14 bg-dark text-white text-xs px-2 py-1 rounded opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap">修改</span>
+          </button>
+          <button id="btnDelete" class="w-12 h-12 bg-white rounded-full shadow-soft hover:bg-red-500 hover:text-white text-gray-600 transition-custom flex items-center justify-center group relative" title="删除模式">
+            <i class="fa fa-trash text-lg"></i>
+            <span class="absolute right-14 bg-dark text-white text-xs px-2 py-1 rounded opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap">删除</span>
+          </button>
+          <button id="btnAdd" class="w-12 h-12 bg-white rounded-full shadow-soft hover:bg-green-500 hover:text-white text-gray-600 transition-custom flex items-center justify-center group relative" title="添加足迹">
+            <i class="fa fa-plus text-lg"></i>
+            <span class="absolute right-14 bg-dark text-white text-xs px-2 py-1 rounded opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap">添加</span>
+          </button>
+        </div>
+
+        <button id="toolbarToggle" class="w-14 h-14 bg-primary text-white rounded-full shadow-soft hover:bg-blue-600 transition-custom flex items-center justify-center text-xl pointer-events-auto z-30">
+          <i class="fa fa-bars transition-transform duration-300" id="toolbarIcon"></i>
+        </button>
+      </div>
+    </section>
+  </main>
+
+  <div id="addUserModal" class="fixed inset-0 bg-black bg-opacity-50 z-50 hidden items-center justify-center">
+    <div class="bg-white rounded-lg shadow-xl max-w-lg w-full mx-4 overflow-hidden transform transition-custom scale-95 opacity-0" id="addUserModalContent">
+      <div class="p-6">
+        <h3 class="text-xl font-bold mb-4">添加成员</h3>
+        <form id="addUserForm">
+          <div class="mb-4">
+            <label class="block text-gray-700 text-sm font-bold mb-2">姓名</label>
+            <input type="text" id="userNameInput" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" required>
+          </div>
+          <div class="mb-4">
+            <label class="block text-gray-700 text-sm font-bold mb-2">头像URL（可选）</label>
+            <input type="url" id="avatarUrlInput" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" placeholder="https://...">
+          </div>
+          <div class="mb-4">
+            <label class="block text-gray-700 text-sm font-bold mb-2">上传头像图片（可选）</label>
+            <input type="file" id="avatarFileInput" accept="image/*" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+          </div>
+          <div class="flex justify-end space-x-3">
+            <button type="button" id="cancelAddUser" class="bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline transition-custom">取消</button>
+            <button type="submit" class="bg-secondary hover:bg-green-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline transition-custom">添加</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <div id="statsModal" class="fixed inset-0 bg-black bg-opacity-50 z-50 hidden items-center justify-center">
+    <div class="bg-white rounded-lg shadow-xl max-w-lg w-full mx-4 overflow-hidden transform transition-custom scale-95 opacity-0" id="statsModalContent">
+      <div class="p-6">
+        <div class="flex justify-between items-center mb-4">
+          <h3 id="statsTitle" class="text-xl font-bold">成员足迹省份统计</h3>
+          <button id="closeStats" class="bg-gray-200 hover:bg-gray-300 text-gray-800 rounded-full p-2 transition-custom">
+            <i class="fa fa-times"></i>
+          </button>
+        </div>
+        <p id="statsSummary" class="text-gray-700 mb-3"></p>
+        <div id="statsList" class="text-sm text-gray-700 space-y-1"></div>
+      </div>
+    </div>
+  </div>
+
+  <div id="footprintModal" class="fixed inset-0 bg-black bg-opacity-50 z-50 hidden items-center justify-center">
+    <div class="bg-white rounded-lg shadow-xl max-w-md w-full mx-4 overflow-hidden transform transition-custom scale-95 opacity-0" id="modalContent">
+      <div class="relative">
+        <img id="modalImage" src="" alt="旅行照片" class="w-full h-48 object-cover">
+        <button id="closeModal" class="absolute top-3 right-3 bg-black bg-opacity-50 text-white rounded-full p-1 hover:bg-opacity-80 transition-custom">
+          <i class="fa fa-times"></i>
+        </button>
+      </div>
+      <div class="p-5">
+        <h3 id="modalTitle" class="text-xl font-bold mb-2"></h3>
+        <div class="flex items-center text-gray-600 mb-3">
+          <i class="fa fa-calendar mr-1"></i>
+          <span id="modalDate"></span>
+        </div>
+        <p id="modalDescription" class="text-gray-700 mb-3"></p>
+        <div class="flex items-center text-gray-600">
+          <i class="fa fa-map-marker mr-1"></i>
+          <span>坐标: <span id="modalCoordinates"></span></span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div id="addFootprintModal" class="fixed inset-0 bg-black bg-opacity-50 z-50 hidden items-center justify-center">
+    <div class="bg-white rounded-lg shadow-xl max-w-lg w-full mx-4 overflow-hidden transform transition-custom scale-95 opacity-0" id="addModalContent">
+      <div class="p-6">
+        <h3 class="text-xl font-bold mb-4">添加新足迹</h3>
+        <form id="addFootprintForm">
+          <div class="mb-4">
+            <label class="block text-gray-700 text-sm font-bold mb-2">地点</label>
+            <input type="text" id="locationInput" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" required>
+          </div>
+          <div class="mb-4">
+            <label class="block text-gray-700 text-sm font-bold mb-2">时间</label>
+            <input type="date" id="dateInput" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" required>
+          </div>
+          <div class="mb-4">
+            <label class="block text-gray-700 text-sm font-bold mb-2">介绍</label>
+            <textarea id="descriptionInput" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline h-24 resize-none" placeholder="请输入足迹介绍..."></textarea>
+          </div>
+          <div class="mb-4">
+            <label class="block text-gray-700 text-sm font-bold mb-2">图片</label>
+            <input type="file" id="imageInput" accept="image/*" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+          </div>
+          <div class="mb-4">
+            <label class="block text-gray-700 text-sm font-bold mb-2">坐标 (点击地图选择位置)</label>
+            <div class="flex space-x-2">
+              <input type="text" id="latInput" placeholder="纬度" class="shadow appearance-none border rounded flex-1 py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" readonly>
+              <input type="text" id="lngInput" placeholder="经度" class="shadow appearance-none border rounded flex-1 py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" readonly>
+            </div>
+          </div>
+          <div class="flex justify-end space-x-3">
+            <button type="button" id="cancelAdd" class="bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline transition-custom">取消</button>
+            <button type="submit" class="bg-primary hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline transition-custom">完成</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <div id="editFootprintModal" class="fixed inset-0 bg-black bg-opacity-50 z-50 hidden items-center justify-center">
+    <div class="bg-white rounded-lg shadow-xl max-w-lg w-full mx-4 overflow-hidden transform transition-custom scale-95 opacity-0" id="editModalContent">
+      <div class="p-6">
+        <h3 class="text-xl font-bold mb-4">编辑足迹</h3>
+        <form id="editFootprintForm">
+          <input type="hidden" id="editId">
+          <div class="mb-4">
+            <label class="block text-gray-700 text-sm font-bold mb-2">地点</label>
+            <input type="text" id="editLocation" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" required>
+          </div>
+          <div class="mb-4">
+            <label class="block text-gray-700 text-sm font-bold mb-2">时间</label>
+            <input type="date" id="editDate" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" required>
+          </div>
+          <div class="mb-4">
+            <label class="block text-gray-700 text-sm font-bold mb-2">介绍</label>
+            <textarea id="editDescription" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline h-24 resize-none"></textarea>
+          </div>
+          <div class="mb-4">
+            <label class="block text-gray-700 text-sm font-bold mb-2">图片</label>
+            <input type="file" id="editImage" accept="image/*" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+          </div>
+          <div class="flex justify-end space-x-3">
+            <button type="button" id="cancelEdit" class="bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline transition-custom">取消</button>
+            <button type="submit" class="bg-primary hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline transition-custom">保存</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+  <script src="script.js"></script>
+</body>
+</html>

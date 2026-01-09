@@ -1,0 +1,83 @@
+@layer utilities {
+  .content-auto {
+    content-visibility: auto;
+  }
+  .shadow-soft {
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12);
+  }
+  .transition-custom {
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+}
+
+/* 地图容器样式 */
+#map {
+  height: 100%;
+  min-height: 500px;
+  background-color: #aad3df;
+}
+
+/* 自定义滚动条 */
+.custom-scrollbar::-webkit-scrollbar {
+  width: 6px;
+}
+.custom-scrollbar::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 10px;
+}
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background: #c1c1c1;
+  border-radius: 10px;
+}
+.custom-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: #a8a8a8;
+}
+
+/* 加载动画 */
+.loading {
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  border: 3px solid rgba(59, 130, 246, 0.3);
+  border-radius: 50%;
+  border-top-color: #3B82F6;
+  animation: spin 1s ease-in-out infinite;
+}
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+/* --- 新增：工具栏与按钮交互样式 --- */
+
+/* 工具栏展开状态：子元素向上浮出 */
+.toolbar-expanded #toolbarActions {
+  transform: translateY(0);
+  opacity: 1;
+  pointer-events: auto;
+}
+
+/* 按钮激活/选中状态 */
+.btn-active {
+  background-color: #3B82F6 !important; /* primary blue */
+  color: white !important;
+  box-shadow: inset 0 2px 4px rgba(0,0,0,0.2);
+}
+
+/* 删除模式激活 */
+.btn-active-red {
+  background-color: #EF4444 !important; /* red */
+  color: white !important;
+  box-shadow: inset 0 2px 4px rgba(0,0,0,0.2);
+}
+
+/* 编辑模式激活 */
+.btn-active-orange {
+  background-color: #F59E0B !important; /* orange */
+  color: white !important;
+  box-shadow: inset 0 2px 4px rgba(0,0,0,0.2);
+}
+
+/* 按钮悬停提示 (tooltip) */
+.group:hover .group-hover\:opacity-100 {
+  opacity: 1;
+}
