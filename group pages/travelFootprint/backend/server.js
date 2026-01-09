@@ -35,14 +35,24 @@ const storage = multer.diskStorage({
 const upload = multer({ storage: storage });
 
 // PostgreSQL连接配置（从环境变量读取）
-const pool = new Pool({
-  user: process.env.DB_USER || 'postgres',
-  host: process.env.DB_HOST || 'localhost',
-  database: process.env.DB_NAME || 'travel_footprint',
-  password: process.env.DB_PASSWORD || '123456',  // 替换为你的数据库密码
-  port: process.env.DB_PORT || 5432,
-});
-
+const pool = new Pool(
+  process.env.DATABASE_URL
+    ? {
+        // 如果云端有地址，就用云端的（并且开启SSL）
+        connectionString: process.env.DATABASE_URL,
+        ssl: {
+          rejectUnauthorized: false,
+        },
+      }
+    : {
+        // 如果没有云端地址，就用本地的
+        user: 'postgres',
+        host: 'localhost',
+        database: 'travel_footprint',
+        password: '你的本地密码', // 这里的密码是你本地的，不用改
+        port: 5432,
+      }
+);
 // 测试数据库连接
 pool.connect((err) => {
   if (err) {
