@@ -49,7 +49,7 @@ const pool = new Pool(
         user: 'postgres',
         host: 'localhost',
         database: 'travel_footprint',
-        password: '你的本地密码', // 这里的密码是你本地的，不用改
+        password: '123456', // 这里的密码是你本地的，不用改
         port: 5432,
       }
 );
