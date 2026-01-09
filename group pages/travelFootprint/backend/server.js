@@ -65,18 +65,25 @@ const upload = multer({ storage: storage });
 
 
 // ================= 3. 数据库配置 =================
+// 关键修改：优先使用环境变量 DATABASE_URL (云端)，没有才用 localhost (本地)
 const pool = new Pool({
-  user: 'postgres',
-  host: 'localhost',
-  // ⚠️ 请确保这里和你的 pgAdmin 里看到的数据库名一致
-  // 如果你的库叫 webgis_db，请改成 webgis_db
-  database: 'travel_footprint', 
+  connectionString: process.env.DATABASE_URL 
+    ? process.env.DATABASE_URL 
+    : `postgresql://postgres:你的本地密码@localhost:5432/travel_footprint`,
   
-  // ⚠️ 请确保这里是你安装 PostgreSQL 时设置的密码
-  password: '123456',   
-  port: 5432,
+  // 云端数据库通常需要 SSL 连接，本地不需要
+  ssl: process.env.DATABASE_URL ? { rejectUnauthorized: false } : false
 });
 
+// 启动时立即测试数据库连接
+pool.connect((err, client, release) => {
+  if (err) {
+    console.error('❌ 数据库连接失败:', err.message);
+  } else {
+    console.log('✅ 数据库连接成功');
+    release(); // 释放连接
+  }
+});
 // 启动时立即测试数据库连接
 pool.connect((err, client, release) => {
   if (err) {
